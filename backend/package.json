@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for forum",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Exanlv/forum.git"
+  },
+  "author": "Exan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Exanlv/forum/issues"
+  },
+  "homepage": "https://github.com/Exanlv/forum#readme",
+  "dependencies": {
+    "@types/node": "^13.9.5",
+    "fastify": "^2.13.0"
+  }
+}
