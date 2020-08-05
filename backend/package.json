@@ -18,6 +18,6 @@
   "homepage": "https://github.com/Exanlv/forum#readme",
   "dependencies": {
     "@types/node": "^13.9.5",
-    "fastify": "^2.13.0"
+    "fastify": "^2.15.1"
   }
 }
