@@ -19,6 +19,10 @@ export class Application {
         this.server.setErrorHandler(this.handleError);
     }
 
+    public static getInstance() {
+        return Application._instance;
+    }
+
     private handleError(error: fastify.FastifyError & {[key: string]: any}, request: fastify.FastifyRequest, reply: fastify.FastifyReply<ServerResponse>) {
         reply.code(error.statusCode ?? 500);
         reply.type(ResponseTypes.JSON);
@@ -32,10 +36,6 @@ export class Application {
         }
 
         reply.send(response);
-    }
-
-    public static getInstance() {
-        return Application._instance;
     }
 
     public start() {
@@ -54,6 +54,4 @@ export class Application {
             user: User
         };
     }
-
-    
 }

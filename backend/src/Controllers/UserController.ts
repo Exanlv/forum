@@ -1,8 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ServerResponse } from "http";
 import { Db } from "../Classes/Db";
+import { Session } from "../Classes/Types/Models/Session";
 import { ResponseTypes } from "../Enums/ResponseTypes";
 import { ValueAlreadyInUseError } from "../Errors/Http/400/ValueAlreadtInUseError";
+import { FailedSavingModelError } from "../Errors/Http/500/FailedSavingModelError";
 import { HttpController } from "./_HttpController";
 
 export class UserController extends HttpController {
@@ -31,7 +33,15 @@ export class UserController extends HttpController {
 
         reply.type(ResponseTypes.JSON);
 
-        await (user as any).save();
+        const session = new Session(user);
+
+        user.sessions.push(session);
+
+        try {
+            await user.save();
+        } catch (e) {
+            throw new FailedSavingModelError(e, 'User', user);
+        }
 
         return user;
     }
