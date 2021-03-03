@@ -1,12 +1,12 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { ServerResponse } from 'http';
-import { Application } from '../Classes/Application';
 import { ResponseTypes } from '../Enums/ResponseTypes';
+import { HttpController } from './_HttpController';
 
-export class StatusController {
-    private application: Application = Application.getInstance();
-
+export class StatusController extends HttpController {
     constructor() {
+        super();
+
         this.application.server.get('/status/ping', this.ping);
         this.application.server.get('/status/uptime', this.uptime);
     }
