@@ -13,6 +13,7 @@ const UserSchema = db.mongoose.Schema({
             _id: false,
             token: String,
             created_at: Date,
+            device: String
         }
     ]
 
