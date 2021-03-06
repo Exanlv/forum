@@ -1,5 +1,5 @@
-import { ERRORS } from "../Errors";
-import { UserInputError } from "./UserInputError";
+import { ERRORS } from "../../Errors";
+import { UserInputError } from "../400/UserInputError";
 
 export class UserNotFoundError extends UserInputError {
     public statusCode: number = 404;

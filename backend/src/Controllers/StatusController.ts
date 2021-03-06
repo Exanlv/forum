@@ -1,14 +1,24 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { ServerResponse } from 'http';
 import { ResponseTypes } from '../Enums/ResponseTypes';
+import { Authentication } from '../Helpers/Middleware/Authentication';
 import { HttpController } from './_HttpController';
 
 export class StatusController extends HttpController {
     constructor() {
         super();
 
-        this.application.server.get('/status/ping', this.ping);
-        this.application.server.get('/status/uptime', this.uptime);
+        this.application.server.route({
+            method: 'GET',
+            url: '/status/ping',
+            handler: this.ping
+        });
+
+        this.application.server.route({
+            method: 'GET',
+            url: '/status/uptime',
+            handler: this.uptime
+        });
     }
 
     private async ping(request: FastifyRequest, reply: FastifyReply<ServerResponse>) {

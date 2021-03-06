@@ -1,5 +1,5 @@
-import { ERRORS } from "../Errors";
-import { UserInputError } from "./UserInputError";
+import { ERRORS } from "../../Errors";
+import { UserInputError } from "../400/UserInputError";
 
 export class IncorrectPasswordError extends UserInputError {
     public statusCode = 403;

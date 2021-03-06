@@ -4,10 +4,9 @@ import { Db } from "../Classes/Db";
 import { Session } from "../Classes/Types/Models/Session";
 import { User } from "../Classes/Types/Models/User";
 import { ResponseTypes } from "../Enums/ResponseTypes";
-import { IncorrectPasswordError } from "../Errors/Http/400/IncorrectPasswordError";
-import { UserAlreadyExistsError } from "../Errors/Http/400/UserAlreadyExistsError";
-import { UserNotFoundError } from "../Errors/Http/400/UserNotFoundError";
-import { ValueAlreadyInUseError } from "../Errors/Http/400/ValueAlreadtInUseError";
+import { IncorrectPasswordError } from "../Errors/Http/400/403/IncorrectPasswordError";
+import { UserAlreadyExistsError } from "../Errors/Http/400/400/UserAlreadyExistsError";
+import { UserNotFoundError } from "../Errors/Http/400/404/UserNotFoundError";
 import { FailedSavingModelError } from "../Errors/Http/500/FailedSavingModelError";
 import { hashPassword } from "../Helpers/Functions/hashPassword";
 import { verifyPassword } from "../Helpers/Functions/verifyPassword";
@@ -17,8 +16,17 @@ export class UserController extends HttpController {
     constructor() {
         super();
 
-        this.application.server.post('/user/register', this.register);
-        this.application.server.post('/user/login', this.login);
+        this.application.server.route({
+            method: 'POST',
+            url: '/user/register',
+            handler: this.register
+        });
+
+        this.application.server.route({
+            method: 'POST',
+            url: '/user/login',
+            handler: this.login
+        });
     }
 
     private async register(request: FastifyRequest, reply: FastifyReply<ServerResponse>) {
@@ -40,7 +48,7 @@ export class UserController extends HttpController {
 
         reply.type(ResponseTypes.JSON);
 
-        const session = new Session(user);
+        const session = new Session(user, request.body.client);
 
         user.sessions.push(session);
 
@@ -80,7 +88,7 @@ export class UserController extends HttpController {
             throw new IncorrectPasswordError();
         }
 
-        const session = new Session(user);
+        const session = new Session(user, request.body.client);
 
         user.sessions.push(session);
 

@@ -1,4 +1,4 @@
-import { ERRORS } from "../Errors";
+import { ERRORS } from "../../Errors";
 
 export class UserInputError extends Error {
     public statusCode: number = 400;

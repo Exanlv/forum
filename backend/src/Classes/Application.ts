@@ -23,7 +23,11 @@ export class Application {
         return Application._instance;
     }
 
-    private handleError(error: fastify.FastifyError & {[key: string]: any}, request: fastify.FastifyRequest, reply: fastify.FastifyReply<ServerResponse>) {
+    private handleError(
+        error: fastify.FastifyError & {[key: string]: any},
+        request: fastify.FastifyRequest,
+        reply: fastify.FastifyReply<ServerResponse>
+    ) {
         reply.code(error.statusCode ?? 500);
         reply.type(ResponseTypes.JSON);
 
